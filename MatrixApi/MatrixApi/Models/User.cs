@@ -72,5 +72,10 @@ namespace MatrixApi.Models
             get;
             set;
         }
+        public int userrole
+        {
+            get;
+            set;
+        }
     }
 }

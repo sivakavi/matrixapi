@@ -68,6 +68,37 @@ namespace MatrixApi.Core
             }
         }
 
+        public static string DbLogin(string query)
+        {
+            try
+            {
+                using (MySqlConnection objDbConnection = new MySqlConnection(dbConnection))
+                {
+                    using (MySqlCommand DBcommand = new MySqlCommand(query, objDbConnection))
+                    {
+                        MySqlDataReader DBreader;
+
+                        objDbConnection.Open();
+
+                        DBreader = DBcommand.ExecuteReader();
+
+                        if (DBreader.HasRows)
+                        {
+                            return "success";
+                        }
+                        else
+                        {
+                            return "fail";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
         public static List<Dictionary<string, object>> DictionaryData(DataTable dt)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();

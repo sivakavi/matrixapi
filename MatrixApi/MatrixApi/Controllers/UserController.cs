@@ -19,7 +19,28 @@ namespace MatrixApi.Controllers
         public HttpResponseMessage GetAllUser()
         {
             return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.GetAllUser());
-            
+        }
+
+        [HttpPost]
+        [ActionName("getuser")]
+        public HttpResponseMessage GetUserBySearch([FromBody]User objUser)
+        {
+           return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.GetUserBySearch(objUser));
+        }
+
+        [HttpPost]
+        [ActionName("getuserbyusername")]
+        public HttpResponseMessage GetUserByUsername([FromBody]User objUser)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.GetUserByUsername(objUser));
+        }
+
+        [HttpPost]
+        [ActionName("userlogin")]
+        public HttpResponseMessage UserLogin([FromBody]User objUser)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.UserLogin(objUser));
         }
     }
 }
+ 
