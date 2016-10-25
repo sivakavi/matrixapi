@@ -41,6 +41,13 @@ namespace MatrixApi.Controllers
         {
             return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.UserLogin(objUser));
         }
+
+        [HttpGet]
+        [ActionName("changepassword")]
+        public HttpResponseMessage UserLogin(string oldpassword, string newpassword, string username)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.ChangePassword(oldpassword, newpassword, username));
+        }
     }
 }
  
