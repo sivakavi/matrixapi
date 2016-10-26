@@ -34,7 +34,7 @@ namespace MatrixApi.DataAccess
 
         public string AddUser(User objUser)
         {
-            return DbAccess.DbAInsert("insert into lorry VALUES ('NULL','" + objUser.fname
+            return DbAccess.DbAInsert("insert into tbl_user VALUES ('NULL','" + objUser.fname
                     + "', '" + objUser.lname
                     + "', '" + objUser.email
                     + "', '" + objUser.phone
@@ -50,9 +50,9 @@ namespace MatrixApi.DataAccess
                     + "')");
         }
 
-        public string EditLorry(User objEditUser)
+        public string EditUser(User objEditUser)
         {
-            return DbAccess.DbAInsert("UPDATE lorry SET "
+            return DbAccess.DbAInsert("UPDATE tbl_user SET "
             + "fname='" + objEditUser.fname + "',"
             + "lname='" + objEditUser.lname + "',"
             + "email='" + objEditUser.email + "',"

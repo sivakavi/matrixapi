@@ -48,6 +48,20 @@ namespace MatrixApi.Controllers
         {
             return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.ChangePassword(oldpassword, newpassword, username));
         }
+
+        [HttpPost]
+        [ActionName("adduser")]
+        public HttpResponseMessage AddUser([FromBody]User objUser)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.AddUser(objUser));
+        }
+
+        [HttpPost]
+        [ActionName("edituser")]
+        public HttpResponseMessage EditUser([FromBody]User objUser)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.EditUser(objUser));
+        }
     }
 }
  
