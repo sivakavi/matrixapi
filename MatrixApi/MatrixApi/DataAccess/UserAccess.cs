@@ -17,14 +17,14 @@ namespace MatrixApi.DataAccess
             return DbAccess.DbASelect("SELECT * FROM tbl_user");
         }
         
-        public List<Dictionary<string, object>> GetUserBySearch(User objUser)
+        public List<Dictionary<string, object>> GetUserById(int userid)
         {
-            return DbAccess.DbASelect("SELECT * FROM tbl_user WHERE userid='" + objUser.userid + "'");
+            return DbAccess.DbASelect("SELECT * FROM tbl_user WHERE userid='" + userid + "'");
         }
         
-        public List<Dictionary<string, object>> GetUserByUsername(User objUser)
+        public List<Dictionary<string, object>> GetUserByUsername(string username)
         {
-            return DbAccess.DbASelect("SELECT * FROM tbl_user WHERE username='" + objUser.username + "'");
+            return DbAccess.DbASelect("SELECT * FROM tbl_user WHERE username='" + username + "'");
         }
 
         public string UserLogin(User objUser)

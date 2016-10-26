@@ -22,6 +22,11 @@ namespace MatrixApi.Models
             get;
             set;
         }
+        public int duration
+        {
+            get;
+            set;
+        }
         public DateTime createdat
         {
             get;
