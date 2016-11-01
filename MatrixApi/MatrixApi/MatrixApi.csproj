@@ -137,6 +137,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\GymTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Core\DbAccess.cs" />
+    <Compile Include="DataAccess\CustomerAcces.cs" />
     <Compile Include="DataAccess\GymTypeAccess.cs" />
     <Compile Include="DataAccess\MemberTypeAccess.cs" />
     <Compile Include="DataAccess\TodoAccess.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\GymType.cs" />
     <Compile Include="Models\MemberType.cs" />
     <Compile Include="Models\Todo.cs" />
