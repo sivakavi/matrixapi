@@ -52,7 +52,6 @@ namespace MatrixApi.DataAccess
             return DbAccess.DbAInsert("insert into tbl_customer VALUES ('NULL','" + objCustomer.cid
                     + "', '" + objCustomer.fname
                     + "', '" + objCustomer.lname
-                    + "', '" + objCustomer.email
                     + "', '" + objCustomer.gender
                     + "', '" + objCustomer.dob
                     + "', '" + objCustomer.address
@@ -68,9 +67,7 @@ namespace MatrixApi.DataAccess
                     + "', '" + objCustomer.amount
                     + "', '" + objCustomer.paid
                     + "', '" + objCustomer.balance
-                    + "', '" + objCustomer.password
-                    + "', " + objCustomer.active
-                    + ", '" + objCustomer.createdat
+                    + "', 'welcomematrix', 1, "+ objCustomer.createdat
                     + "', '" + objCustomer.updatedat
                     + "', " + objCustomer.createdby
                     + ", " + objCustomer.updatedby
