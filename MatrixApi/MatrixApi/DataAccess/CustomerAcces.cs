@@ -14,37 +14,37 @@ namespace MatrixApi.DataAccess
     {
         public List<Dictionary<string, object>> GetAllCustomer()
         {
-            return DbAccess.DbASelect("SELECT * FROM tbl_customer");
+            return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid");
         }
 
         public List<Dictionary<string, object>> GetCustomerById(string cid)
         {
-            return DbAccess.DbASelect("SELECT * FROM tbl_customer WHERE cid='" + cid + "'");
+            return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid WHERE cid='" + cid + "'");
         }
 
         public List<Dictionary<string, object>> GetAllBalanceDueCustomer()
         {
-            return DbAccess.DbASelect("select * from tbl_customer where balance > 0");
+            return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid where balance > 0");
         }
 
         public List<Dictionary<string, object>> GetAllExpiredCustomer(string today)
         {
-            return DbAccess.DbASelect("select * from tbl_customer where enddate < '"+today+"'");
+            return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid where enddate < '" + today + "'");
         }
 
-        public List<Dictionary<string, object>> GetAllThisMonthExpireCustomer(string year, string month)
+        public List<Dictionary<string, object>> GetAllThisMonthExpireCustomer(string year, string month, string today)
         {
-            return DbAccess.DbASelect("SELECT * FROM tbl_customer WHERE YEAR(enddate) = '"+year+"' and MONTH(enddate) = '"+month+"'");
+            return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid WHERE YEAR(enddate) = '" + year + "' and MONTH(enddate) = '" + month + "' and enddate >= '" + today + "'");
         }
 
         public List<Dictionary<string, object>> GetAllThisMonthBirthdayCustomer(string month)
         {
-            return DbAccess.DbASelect("SELECT * FROM tbl_customer WHERE MONTH(dob) = '" + month + "'");
+            return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid WHERE MONTH(dob) = '" + month + "'");
         }
 
         public List<Dictionary<string, object>> GetLastEightCustomer()
         {
-            return DbAccess.DbASelect("SELECT * FROM tbl_customer ORDER BY xlimit DESC LIMIT 8");
+            return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid ORDER BY xlimit DESC LIMIT 8");
         }
 
         public List<Dictionary<string, object>> GetMemberTypeChart()

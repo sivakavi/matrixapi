@@ -43,9 +43,9 @@ namespace MatrixApi.Controllers
 
         [HttpGet]
         [ActionName("getallthismonthexpirecustomer")]
-        public HttpResponseMessage GetAllThisMonthExpireCustomer(string year, string month)
+        public HttpResponseMessage GetAllThisMonthExpireCustomer(string year, string month, string today)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetAllThisMonthExpireCustomer(year,month));
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetAllThisMonthExpireCustomer(year,month,today));
         }
 
         [HttpGet]
