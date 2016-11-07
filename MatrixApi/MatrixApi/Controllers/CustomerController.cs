@@ -62,6 +62,13 @@ namespace MatrixApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetLastEightCustomer());
         }
 
+        [HttpGet]
+        [ActionName("getmembertypechart")]
+        public HttpResponseMessage GetMemberTypeChart()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetMemberTypeChart());
+        }
+
         [HttpPost]
         [ActionName("addcustomer")]
         public HttpResponseMessage AddCustomer([FromBody]Customer objCustomer)

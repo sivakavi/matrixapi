@@ -27,6 +27,7 @@ namespace MatrixApi.DataAccess
             return DbAccess.DbAInsert("insert into tbl_membertype VALUES ('NULL','" + objMemberType.membertypename
                     + "', '" + objMemberType.amount
                     + "', '" + objMemberType.duration
+                    + "', '" + objMemberType.colorcode
                     + "', '" + objMemberType.createdat
                     + "', '" + objMemberType.updatedat
                     + "')");
@@ -38,6 +39,7 @@ namespace MatrixApi.DataAccess
             + "membertypename='" + objMemberType.membertypename + "',"
             + "amount='" + objMemberType.amount + "',"
             + "duration='" + objMemberType.duration + "',"
+            + "colorcode='" + objMemberType.colorcode + "',"
             + "updatedat='" + objMemberType.updatedat + "' WHERE membertypeid='" + objMemberType.membertypeid + "'");
         }
     }

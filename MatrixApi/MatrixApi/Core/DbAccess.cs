@@ -130,6 +130,47 @@ namespace MatrixApi.Core
             }
         }
 
+        public static List<Dictionary<string, object>> DbChart(string query)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add("value", typeof(int));
+                dt.Columns.Add("color", typeof(string));
+                dt.Columns.Add("highlight", typeof(string));
+                dt.Columns.Add("label", typeof(string));
+
+                using (MySqlConnection objDbConnection = new MySqlConnection(dbConnection))
+                {
+                    using (MySqlCommand DBcommand = new MySqlCommand(query, objDbConnection))
+                    {
+                        MySqlDataReader DBreader;
+
+                        objDbConnection.Open();
+
+                        DBreader = DBcommand.ExecuteReader();
+
+                        while (DBreader.Read())
+                        {
+                            int v = Int32.Parse(DBreader["co"].ToString());
+                            string c = DBreader["colorcode"].ToString();
+                            string h = DBreader["colorcode"].ToString();
+                            string l = DBreader["membertypename"].ToString();
+
+                            dt.Rows.Add(v, c, h, l);
+                            
+                        }
+
+                        return DictionaryData(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
         public static List<Dictionary<string, object>> DictionaryData(DataTable dt)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();

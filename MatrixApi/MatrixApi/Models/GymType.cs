@@ -17,12 +17,12 @@ namespace MatrixApi.Models
             get;
             set;
         }
-        public DateTime createdat
+        public string createdat
         {
             get;
             set;
         }
-        public DateTime updatedat
+        public string updatedat
         {
             get;
             set;

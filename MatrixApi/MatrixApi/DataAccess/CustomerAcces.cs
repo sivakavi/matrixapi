@@ -47,6 +47,11 @@ namespace MatrixApi.DataAccess
             return DbAccess.DbASelect("SELECT * FROM tbl_customer ORDER BY xlimit DESC LIMIT 8");
         }
 
+        public List<Dictionary<string, object>> GetMemberTypeChart()
+        {
+            return DbAccess.DbChart("select c.membertypeid, m.membertypename, m.colorcode, count(*) as co from tbl_customer AS c join tbl_membertype as m on c.membertypeid = m.membertypeid GROUP BY c.membertypeid");
+        }
+
         public string AddCustomer(Customer objCustomer)
         {
             return DbAccess.DbAInsert("insert into tbl_customer VALUES ('NULL','" + objCustomer.cid

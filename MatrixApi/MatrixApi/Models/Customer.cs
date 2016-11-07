@@ -32,7 +32,7 @@ namespace MatrixApi.Models
             get;
             set;
         }
-        public DateTime dob
+        public string dob
         {
             get;
             set;
@@ -72,17 +72,17 @@ namespace MatrixApi.Models
             get;
             set;
         }
-        public DateTime joindate
+        public string joindate
         {
             get;
             set;
         }
-        public DateTime startdate
+        public string startdate
         {
             get;
             set;
         }
-        public DateTime enddate
+        public string enddate
         {
             get;
             set;
@@ -112,12 +112,12 @@ namespace MatrixApi.Models
             get;
             set;
         }
-        public DateTime createdat
+        public string createdat
         {
             get;
             set;
         }
-        public DateTime updatedat
+        public string updatedat
         {
             get;
             set;
