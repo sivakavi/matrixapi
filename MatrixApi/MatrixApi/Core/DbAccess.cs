@@ -189,9 +189,9 @@ namespace MatrixApi.Core
             try
             {
                 DataTable dt = new DataTable();
-                dt.Columns.Add("value", typeof(int));
+                dt.Columns.Add("value", typeof(string));
                 dt.Columns.Add("label", typeof(string));
-                dt.Columns.Add("userid", typeof(string));
+                dt.Columns.Add("userid", typeof(int));
                 
                 using (MySqlConnection objDbConnection = new MySqlConnection(dbConnection))
                 {
@@ -206,7 +206,7 @@ namespace MatrixApi.Core
                         while (DBreader.Read())
                         {
                             int u = Int32.Parse(DBreader["userid"].ToString());
-                            string v = DBreader["fname"].ToString() + " - " + DBreader["userid"].ToString();
+                            string v = DBreader["fname"].ToString() + " - " + u.ToString();
                             dt.Rows.Add(v, v, u);
 
                         }

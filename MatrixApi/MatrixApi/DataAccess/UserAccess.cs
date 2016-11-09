@@ -90,7 +90,7 @@ namespace MatrixApi.DataAccess
 
         public List<Dictionary<string, object>> GetUserSearch()
         {
-            return DbAccess.DbUserSearch("select userid, fname, from tbl_user");
+            return DbAccess.DbUserSearch("select userid, fname from tbl_user");
         }
 
 
