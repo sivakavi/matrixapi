@@ -84,7 +84,20 @@ namespace MatrixApi.Core
 
                         if (DBreader.HasRows)
                         {
-                            return "success";
+                            DBreader.Read();
+                            int active = Int32.Parse(DBreader["active"].ToString());
+                            if (active == 1)
+                            {
+                                return "success";
+                            }
+                            else if (active == 0)
+                            {
+                                return "noactive";
+                            }
+                            else
+                            {
+                                return "";
+                            }
                         }
                         else
                         {
@@ -159,6 +172,43 @@ namespace MatrixApi.Core
 
                             dt.Rows.Add(v, c, h, l);
                             
+                        }
+
+                        return DictionaryData(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+        public static List<Dictionary<string, object>> DbUserSearch(string query)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add("value", typeof(int));
+                dt.Columns.Add("label", typeof(string));
+                dt.Columns.Add("userid", typeof(string));
+                
+                using (MySqlConnection objDbConnection = new MySqlConnection(dbConnection))
+                {
+                    using (MySqlCommand DBcommand = new MySqlCommand(query, objDbConnection))
+                    {
+                        MySqlDataReader DBreader;
+
+                        objDbConnection.Open();
+
+                        DBreader = DBcommand.ExecuteReader();
+
+                        while (DBreader.Read())
+                        {
+                            int u = Int32.Parse(DBreader["userid"].ToString());
+                            string v = DBreader["fname"].ToString() + " - " + DBreader["userid"].ToString();
+                            dt.Rows.Add(v, v, u);
+
                         }
 
                         return DictionaryData(dt);

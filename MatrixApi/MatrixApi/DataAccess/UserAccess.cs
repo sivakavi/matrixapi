@@ -39,9 +39,9 @@ namespace MatrixApi.DataAccess
                     + "', '" + objUser.email
                     + "', '" + objUser.phone
                     + "', '" + objUser.address
-                    + "', '" + objUser.profileimage
+                    + "', '" + " "
                     + "', '" + objUser.username
-                    + "', '" + objUser.password
+                    + "', '" + "welcome123!@#"
                     + "', '" + objUser.active
                     + "', '" + objUser.createdat
                     + "', '" + objUser.updatedat
@@ -68,19 +68,29 @@ namespace MatrixApi.DataAccess
 
             if (oldpasscheck!="nil")
             { 
-            if (oldpasscheck != oldpassword)
-            {
-                return "wrong";
-            }
-            else
-            {
-                return DbAccess.DbAInsert("UPDATE tbl_user SET password='" + newpassword + "' WHERE username='" + username + "'");
-            }
+                if (oldpasscheck != oldpassword)
+                {
+                    return "wrong";
+                }
+                else
+                {
+                    return DbAccess.DbAInsert("UPDATE tbl_user SET password='" + newpassword + "' WHERE username='" + username + "'");
+                }
             }
             else
             {
                 return "nouser";
             }
+        }
+
+        public string ActiveChange(int userid, int active)
+        {
+            return DbAccess.DbAInsert("UPDATE tbl_user SET active=" + active + " WHERE userid=" + userid + "");
+        }
+
+        public List<Dictionary<string, object>> GetUserSearch()
+        {
+            return DbAccess.DbUserSearch("select userid, fname, from tbl_user");
         }
 
 

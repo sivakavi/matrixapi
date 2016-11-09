@@ -62,6 +62,20 @@ namespace MatrixApi.Controllers
         {
             return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.EditUser(objUser));
         }
+
+        [HttpGet]
+        [ActionName("activechange")]
+        public HttpResponseMessage UserLogin(int userid, int active)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.ActiveChange(userid, active));
+        }
+
+        [HttpGet]
+        [ActionName("getusersearch")]
+        public HttpResponseMessage GetMemberTypeChart()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objUserAccess.GetUserSearch());
+        }
     }
 }
  
