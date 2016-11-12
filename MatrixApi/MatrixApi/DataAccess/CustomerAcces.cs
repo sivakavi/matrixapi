@@ -103,5 +103,10 @@ namespace MatrixApi.DataAccess
             + "bicepsize='" + objEditCustomer.bicepsize + "',"
             + "calfsize='" + objEditCustomer.calfsize + "' WHERE cid='" + objEditCustomer.cid + "'");
         }
+
+        public List<Dictionary<string, object>> GetCustomerSearch()
+        {
+            return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer");
+        }
     }
 }

@@ -83,5 +83,12 @@ namespace MatrixApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.EditCustomer(objCustomer));
         }
 
+        [HttpGet]
+        [ActionName("getcustomersearch")]
+        public HttpResponseMessage GetCustomerSearch()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetCustomerSearch());
+        }
+
     }
 }

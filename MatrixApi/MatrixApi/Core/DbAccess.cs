@@ -221,6 +221,43 @@ namespace MatrixApi.Core
             }
         }
 
+        public static List<Dictionary<string, object>> DbCustomerSearch(string query)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add("value", typeof(string));
+                dt.Columns.Add("label", typeof(string));
+                dt.Columns.Add("cid", typeof(string));
+
+                using (MySqlConnection objDbConnection = new MySqlConnection(dbConnection))
+                {
+                    using (MySqlCommand DBcommand = new MySqlCommand(query, objDbConnection))
+                    {
+                        MySqlDataReader DBreader;
+
+                        objDbConnection.Open();
+
+                        DBreader = DBcommand.ExecuteReader();
+
+                        while (DBreader.Read())
+                        {
+                            string u = DBreader["cid"].ToString();
+                            string v = DBreader["fname"].ToString() + " - " + u;
+                            dt.Rows.Add(v, v, u);
+
+                        }
+
+                        return DictionaryData(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
         public static List<Dictionary<string, object>> DictionaryData(DataTable dt)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
