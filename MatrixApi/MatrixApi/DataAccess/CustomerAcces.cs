@@ -54,7 +54,7 @@ namespace MatrixApi.DataAccess
 
         public string AddCustomer(Customer objCustomer)
         {
-            return DbAccess.DbAInsert("insert into tbl_customer VALUES ('NULL','" + objCustomer.cid
+            string ret = DbAccess.DbAInsert("insert into tbl_customer VALUES ('NULL','" + objCustomer.cid
                     + "', '" + objCustomer.fname
                     + "', '" + objCustomer.lname
                     + "', '" + objCustomer.gender
@@ -62,7 +62,7 @@ namespace MatrixApi.DataAccess
                     + "', '" + objCustomer.address
                     + "', '" + objCustomer.phone
                     + "', '" + objCustomer.email
-                    + "', '" + objCustomer.cphoto
+                    + "', '" + " "
                     + "', '" + objCustomer.occupation
                     + "', " + objCustomer.membertypeid
                     + ", " + objCustomer.gymtypeid
@@ -72,7 +72,7 @@ namespace MatrixApi.DataAccess
                     + "', '" + objCustomer.amount
                     + "', '" + objCustomer.paid
                     + "', '" + objCustomer.balance
-                    + "', 'welcomematrix', 1, "+ objCustomer.createdat
+                    + "', 'welcomematrix', 1, '"+ objCustomer.createdat
                     + "', '" + objCustomer.updatedat
                     + "', " + objCustomer.createdby
                     + ", " + objCustomer.updatedby
@@ -82,6 +82,22 @@ namespace MatrixApi.DataAccess
                     + "', '" + objCustomer.bicepsize
                     + "', '" + objCustomer.calfsize
                     + "')");
+
+            if (ret == "success")
+            {
+                return  DbAccess.DbAInsert("insert into tbl_customer_member VALUES ('" + objCustomer.cid
+                    + "', " + objCustomer.membertypeid
+                    + ", " + objCustomer.amount
+                    + ", '" + objCustomer.startdate
+                    + "', '" + objCustomer.enddate
+                    + "', '" + objCustomer.createdat
+                    + "', " + objCustomer.createdby
+                    + ")");
+            }
+            else
+            {
+                return "fail";
+            }
         }
 
         public string EditCustomer(Customer objEditCustomer)
@@ -107,6 +123,26 @@ namespace MatrixApi.DataAccess
         public List<Dictionary<string, object>> GetCustomerSearch()
         {
             return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer");
+        }
+
+        public List<Dictionary<string, object>> GetNewBillCustomerSearch()
+        {
+            return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer where paid = 0");
+        }
+
+        public List<Dictionary<string, object>> GetBalanceBillCustomerSearch()
+        {
+            return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer where balance > 0");
+        }
+
+        public List<Dictionary<string, object>> GetRenewalUpgradeBillCustomerSearch()
+        {
+            return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer where balance = 0");
+        }
+
+        public string GetCheckCid(string cid)
+        {
+            return DbAccess.DbCidCheck("select * from tbl_customer where cid='"+ cid +"'");
         }
     }
 }

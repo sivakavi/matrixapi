@@ -90,5 +90,33 @@ namespace MatrixApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetCustomerSearch());
         }
 
+        [HttpGet]
+        [ActionName("getcheckcid")]
+        public HttpResponseMessage GetCheckCid(string cid)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetCheckCid(cid));
+        }
+
+        [HttpGet]
+        [ActionName("getnewbillcustomersearch")]
+        public HttpResponseMessage GetNewBillCustomerSearch()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetNewBillCustomerSearch());
+        }
+
+        [HttpGet]
+        [ActionName("getbalancebillcustomersearch")]
+        public HttpResponseMessage GetBalanceBillCustomerSearch()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetBalanceBillCustomerSearch());
+        }
+
+        [HttpGet]
+        [ActionName("getrenewalupgradebillcustomersearch")]
+        public HttpResponseMessage GetRenewalUpgradeBillCustomerSearch()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetRenewalUpgradeBillCustomerSearch());
+        }
+
     }
 }

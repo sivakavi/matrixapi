@@ -258,6 +258,37 @@ namespace MatrixApi.Core
             }
         }
 
+        public static string DbCidCheck(string query)
+        {
+            try
+            {
+                using (MySqlConnection objDbConnection = new MySqlConnection(dbConnection))
+                {
+                    using (MySqlCommand DBcommand = new MySqlCommand(query, objDbConnection))
+                    {
+                        MySqlDataReader DBreader;
+
+                        objDbConnection.Open();
+
+                        DBreader = DBcommand.ExecuteReader();
+
+                        if (DBreader.HasRows)
+                        {
+                           return "fail";
+                        }
+                        else
+                        {
+                           return "success";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
         public static List<Dictionary<string, object>> DictionaryData(DataTable dt)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
