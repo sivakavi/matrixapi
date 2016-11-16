@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using MatrixApi.Models;
 
 namespace MatrixApi.Core
 {
@@ -306,5 +307,78 @@ namespace MatrixApi.Core
 
             return rows;
         }
+
+        public static List<Customer> DbSingleCustomer(string query)
+        {
+            try
+            {
+                List<Customer> listcustomer = new List<Customer>();
+
+                using (MySqlConnection objDbConnection = new MySqlConnection(dbConnection))
+                {
+                    using (MySqlCommand DBcommand = new MySqlCommand(query, objDbConnection))
+                    {
+                        MySqlDataReader DBreader;
+
+                        objDbConnection.Open();
+
+                        DBreader = DBcommand.ExecuteReader();
+
+                        while (DBreader.Read())
+                        {
+                            Customer cus = new Customer();
+                            cus.amount = float.Parse(DBreader["amount"].ToString());
+                            cus.paid = float.Parse(DBreader["paid"].ToString());
+                            cus.balance = float.Parse(DBreader["balance"].ToString());
+
+                            listcustomer.Add(cus);
+
+                        }
+
+                        return listcustomer;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+        public static int DbGetInvoiceNumber(string query)
+        {
+            try
+            {
+                using (MySqlConnection objDbConnection = new MySqlConnection(dbConnection))
+                {
+                    using (MySqlCommand DBcommand = new MySqlCommand(query, objDbConnection))
+                    {
+                        MySqlDataReader DBreader;
+
+                        objDbConnection.Open();
+
+                        DBreader = DBcommand.ExecuteReader();
+
+
+                        if (DBreader.HasRows)
+                        {
+                            DBreader.Read();
+                            return int.Parse(DBreader["invoiceno"].ToString()) + 1;
+                        }
+                        else
+                        {
+                            return 1001;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException(ex.Message);
+            }
+        }
+
+
+        
     }
 }

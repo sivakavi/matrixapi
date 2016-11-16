@@ -37,9 +37,9 @@ namespace MatrixApi.DataAccess
             return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid WHERE YEAR(enddate) = '" + year + "' and MONTH(enddate) = '" + month + "' and enddate >= '" + today + "'");
         }
 
-        public List<Dictionary<string, object>> GetAllThisMonthBirthdayCustomer(string month)
+        public List<Dictionary<string, object>> GetAllThisMonthBirthdayCustomer(string month, string day)
         {
-            return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid WHERE MONTH(dob) = '" + month + "'");
+            return DbAccess.DbASelect("SELECT c.*,m.membertypename,g.gymtypename FROM tbl_customer as c INNER JOIN tbl_membertype as m ON c.membertypeid = m.membertypeid INNER JOIN tbl_gymtype as g ON c.gymtypeid = g.gymtypeid WHERE MONTH(dob) = '" + month + "' and DAY(dob) >= '" + day + "'");
         }
 
         public List<Dictionary<string, object>> GetLastEightCustomer()
@@ -85,7 +85,7 @@ namespace MatrixApi.DataAccess
 
             if (ret == "success")
             {
-                return  DbAccess.DbAInsert("insert into tbl_customer_member VALUES ('" + objCustomer.cid
+                return DbAccess.DbAInsert("insert into tbl_customer_member VALUES ('NULL','" + objCustomer.cid
                     + "', " + objCustomer.membertypeid
                     + ", " + objCustomer.amount
                     + ", '" + objCustomer.startdate
@@ -132,7 +132,7 @@ namespace MatrixApi.DataAccess
 
         public List<Dictionary<string, object>> GetBalanceBillCustomerSearch()
         {
-            return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer where balance > 0");
+            return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer where balance > 0 and paid != 0");
         }
 
         public List<Dictionary<string, object>> GetRenewalUpgradeBillCustomerSearch()
@@ -144,5 +144,66 @@ namespace MatrixApi.DataAccess
         {
             return DbAccess.DbCidCheck("select * from tbl_customer where cid='"+ cid +"'");
         }
+
+        public List<Dictionary<string, object>> GetCustomerMemberByCid(string cid)
+        {
+            return DbAccess.DbASelect("select * from tbl_customer_member where cid='" + cid + "'");
+        }
+
+        public List<Dictionary<string, object>> GetInvoiceByCid(string cid)
+        {
+            return DbAccess.DbASelect("select * from tbl_invoice where cid='" + cid + "'");
+        }
+
+        public string AddNewBalanceInvoice(Invoice objInvoice)
+        {
+           string ret = DbAccess.DbAInsert("insert into tbl_invoice VALUES ('NULL'," + objInvoice.invoiceno
+                    + ", '" + objInvoice.cid
+                    + "', '" + objInvoice.description
+                    + "', '" + objInvoice.amount
+                    + "', '" + objInvoice.paid
+                    + "', '" + objInvoice.balance
+                    + "', '" + objInvoice.idate
+                    + "', '" + objInvoice.createdat
+                    + "', " + objInvoice.createdby
+                    + ")");
+
+            if (ret == "success")
+            {
+                List<Customer> listcustomer = new List<Customer>();
+                listcustomer = DbAccess.DbSingleCustomer("select * from tbl_customer where cid='" + objInvoice.cid + "'");
+
+                float paid = listcustomer[0].paid + objInvoice.paid;
+                float balance = listcustomer[0].balance - objInvoice.paid;
+
+                return DbAccess.DbAInsert("UPDATE tbl_customer SET "
+                    + "paid='" + paid + "',"
+                    + "balance='" + balance + "' WHERE cid='" + objInvoice.cid + "'");
+            }
+            else
+            {
+                return "fail";
+            }
+        }
+
+        public string Summa(string cid)
+        {
+            List<Customer> listcustomer = new List<Customer>();
+            listcustomer = DbAccess.DbSingleCustomer("select * from tbl_customer where cid='" + cid + "'");
+
+            return "";
+        }
+
+        public int GetInvoiceNumber()
+        {
+            return DbAccess.DbGetInvoiceNumber("SELECT * FROM tbl_invoice ORDER BY sno DESC LIMIT 1");
+
+        }
+
+        public List<Dictionary<string, object>> GetInvoiceCustomer(int invoiceno)
+        {
+            return DbAccess.DbASelect("SELECT i.*, c.fname, c.lname, c.phone, c.email, c.address FROM tbl_invoice as i INNER JOIN tbl_customer as c ON i.cid = c.cid where invoiceno ="+invoiceno);
+        }
+
     }
 }

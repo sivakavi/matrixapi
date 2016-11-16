@@ -50,9 +50,9 @@ namespace MatrixApi.Controllers
 
         [HttpGet]
         [ActionName("getallthismonthbirthdaycustomer")]
-        public HttpResponseMessage GetAllThisMonthBirthdayCustomer(string month)
+        public HttpResponseMessage GetAllThisMonthBirthdayCustomer(string month, string day)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetAllThisMonthBirthdayCustomer(month));
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetAllThisMonthBirthdayCustomer(month,day));
         }
 
         [HttpGet]
@@ -116,6 +116,34 @@ namespace MatrixApi.Controllers
         public HttpResponseMessage GetRenewalUpgradeBillCustomerSearch()
         {
             return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetRenewalUpgradeBillCustomerSearch());
+        }
+
+        [HttpGet]
+        [ActionName("getinvoicenumber")]
+        public HttpResponseMessage GetInvoiceNumber()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetInvoiceNumber());
+        }
+
+        [HttpPost]
+        [ActionName("addnewbalanceinvoice")]
+        public HttpResponseMessage AddNewBalanceInvoice([FromBody]Invoice objInvoice)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.AddNewBalanceInvoice(objInvoice));
+        }
+
+        [HttpGet]
+        [ActionName("getinvoicecustomer")]
+        public HttpResponseMessage GetInvoiceCustomer(int invoiceno)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetInvoiceCustomer(invoiceno));
+        }
+
+        [HttpGet]
+        [ActionName("summa")]
+        public HttpResponseMessage Summa(string cid)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.Summa(cid));
         }
 
     }
