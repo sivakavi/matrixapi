@@ -200,9 +200,19 @@ namespace MatrixApi.DataAccess
 
         }
 
-        public List<Dictionary<string, object>> GetInvoiceCustomer(int invoiceno)
+        public List<Dictionary<string, object>> GetInvoice(int invoiceno)
         {
             return DbAccess.DbASelect("SELECT i.*, c.fname, c.lname, c.phone, c.email, c.address FROM tbl_invoice as i INNER JOIN tbl_customer as c ON i.cid = c.cid where invoiceno ="+invoiceno);
+        }
+
+        public List<Dictionary<string, object>> GetInvoiceCustomer(string cid)
+        {
+            return DbAccess.DbASelect("select * from tbl_invoice where cid = '"+cid+"'");
+        }
+
+        public List<Dictionary<string, object>> GetCustomerMember(string cid)
+        {
+            return DbAccess.DbASelect("select * from tbl_customer_member where cid = '" + cid + "'");
         }
 
     }

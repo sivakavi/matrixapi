@@ -133,10 +133,24 @@ namespace MatrixApi.Controllers
         }
 
         [HttpGet]
-        [ActionName("getinvoicecustomer")]
-        public HttpResponseMessage GetInvoiceCustomer(int invoiceno)
+        [ActionName("getinvoice")]
+        public HttpResponseMessage GetInvoice(int invoiceno)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetInvoiceCustomer(invoiceno));
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetInvoice(invoiceno));
+        }
+
+        [HttpGet]
+        [ActionName("getinvoicecustomer")]
+        public HttpResponseMessage GetInvoice(string cid)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetInvoiceCustomer(cid));
+        }
+
+        [HttpGet]
+        [ActionName("getcustomermember")]
+        public HttpResponseMessage GetCustomerMember(string cid)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetCustomerMember(cid));
         }
 
         [HttpGet]
