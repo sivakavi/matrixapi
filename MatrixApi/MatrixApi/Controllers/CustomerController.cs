@@ -113,9 +113,9 @@ namespace MatrixApi.Controllers
 
         [HttpGet]
         [ActionName("getrenewalupgradebillcustomersearch")]
-        public HttpResponseMessage GetRenewalUpgradeBillCustomerSearch()
+        public HttpResponseMessage GetRenewalUpgradeBillCustomerSearch(string today)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetRenewalUpgradeBillCustomerSearch());
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.GetRenewalUpgradeBillCustomerSearch(today));
         }
 
         [HttpGet]
@@ -130,6 +130,13 @@ namespace MatrixApi.Controllers
         public HttpResponseMessage AddNewBalanceInvoice([FromBody]Invoice objInvoice)
         {
             return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.AddNewBalanceInvoice(objInvoice));
+        }
+
+        [HttpPost]
+        [ActionName("addrenewalinvoice")]
+        public HttpResponseMessage AddRenewalInvoice([FromBody]Invoice objInvoice)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, objCustomerAccess.AddRenewalInvoice(objInvoice));
         }
 
         [HttpGet]

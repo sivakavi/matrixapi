@@ -135,9 +135,9 @@ namespace MatrixApi.DataAccess
             return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer where balance > 0 and paid != 0");
         }
 
-        public List<Dictionary<string, object>> GetRenewalUpgradeBillCustomerSearch()
+        public List<Dictionary<string, object>> GetRenewalUpgradeBillCustomerSearch(string today)
         {
-            return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer where balance = 0");
+            return DbAccess.DbCustomerSearch("select cid, fname from tbl_customer where balance = 0 and enddate <= '" + today + "'");
         }
 
         public string GetCheckCid(string cid)
@@ -178,7 +178,57 @@ namespace MatrixApi.DataAccess
 
                 return DbAccess.DbAInsert("UPDATE tbl_customer SET "
                     + "paid='" + paid + "',"
+                    + "updatedat='" + objInvoice.createdat + "',"
+                    + "updatedby='" + objInvoice.createdby + "',"
                     + "balance='" + balance + "' WHERE cid='" + objInvoice.cid + "'");
+            }
+            else
+            {
+                return "fail";
+            }
+        }
+
+        public string AddRenewalInvoice(Invoice objInvoice)
+        {
+            string ret = DbAccess.DbAInsert("insert into tbl_invoice VALUES ('NULL'," + objInvoice.invoiceno
+                     + ", '" + objInvoice.cid
+                     + "', '" + objInvoice.description
+                     + "', '" + objInvoice.amount
+                     + "', '" + objInvoice.paid
+                     + "', '" + objInvoice.balance
+                     + "', '" + objInvoice.idate
+                     + "', '" + objInvoice.createdat
+                     + "', " + objInvoice.createdby
+                     + ")");
+
+            if (ret == "success")
+            {
+                string re = DbAccess.DbAInsert("UPDATE tbl_customer SET "
+                    + "membertypeid='" + objInvoice.membertypeid + "',"
+                    + "startdate='" + objInvoice.startdate + "',"
+                    + "enddate='" + objInvoice.enddate + "',"
+                    + "amount='" + objInvoice.amount + "',"
+                    + "paid='" + objInvoice.paid + "',"
+                    + "updatedat='" + objInvoice.createdat + "',"
+                    + "updatedby='" + objInvoice.createdby + "',"
+                    + "balance='" + objInvoice.balance + "' WHERE cid='" + objInvoice.cid + "'");
+
+                if (re == "success")
+                {
+                    return DbAccess.DbAInsert("insert into tbl_customer_member VALUES ('NULL','" + objInvoice.cid
+                    + "', " + objInvoice.membertypeid
+                    + ", " + objInvoice.amount
+                    + ", '" + objInvoice.startdate
+                    + "', '" + objInvoice.enddate
+                    + "', '" + objInvoice.createdat
+                    + "', " + objInvoice.createdby
+                    + ")");
+                }
+                else
+                {
+                    return "fail";
+                }
+
             }
             else
             {

@@ -57,5 +57,20 @@ namespace MatrixApi.Models
             get;
             set;
         }
+        public int membertypeid
+        {
+            get;
+            set;
+        }
+        public string startdate
+        {
+            get;
+            set;
+        }
+        public string enddate
+        {
+            get;
+            set;
+        }
     }
 }
